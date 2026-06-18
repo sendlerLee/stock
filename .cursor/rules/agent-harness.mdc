@@ -1,0 +1,8 @@
+---
+description: Shared autonomous-agent harness protocol
+alwaysApply: true
+---
+
+Follow the shared project protocol in `AGENT_HARNESS.md`.
+
+Classify each user request automatically as continue, new, or supersede. Keep request-specific state under `agent-runs/<request-id>/`.

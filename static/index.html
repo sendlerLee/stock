@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>股票分析系统</title>
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+           background: #0d1117; color: #c9d1d9; min-height: 100vh; }
+    header { background: #161b22; border-bottom: 1px solid #30363d;
+             padding: 12px 24px; display: flex; align-items: center; gap: 16px; }
+    header h1 { font-size: 18px; color: #58a6ff; }
+    .toolbar { display: flex; gap: 8px; flex-wrap: wrap; }
+    .toolbar input, .toolbar select, .toolbar button {
+      padding: 6px 12px; border-radius: 6px; border: 1px solid #30363d;
+      background: #21262d; color: #c9d1d9; font-size: 13px; }
+    .toolbar button { background: #238636; border-color: #238636;
+      cursor: pointer; color: #fff; font-weight: 600; }
+    .toolbar button:hover { background: #2ea043; }
+    .tabs { display: flex; gap: 4px; padding: 12px 24px 0;
+            border-bottom: 1px solid #30363d; }
+    .tab { padding: 8px 16px; cursor: pointer; border-radius: 6px 6px 0 0;
+           border: 1px solid transparent; font-size: 13px; color: #8b949e; }
+    .tab.active { background: #161b22; border-color: #30363d;
+                  border-bottom-color: #161b22; color: #c9d1d9; }
+    .panel { display: none; padding: 16px 24px; }
+    .panel.active { display: block; }
+    #kline-chart, #signal-chart, #equity-chart { width: 100%; height: 520px; }
+    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                    gap: 12px; margin-bottom: 16px; }
+    .metric-card { background: #161b22; border: 1px solid #30363d;
+                   border-radius: 8px; padding: 16px; text-align: center; }
+    .metric-card .label { font-size: 11px; color: #8b949e; margin-bottom: 6px; }
+    .metric-card .value { font-size: 22px; font-weight: 700; }
+    .pos { color: #3fb950; } .neg { color: #f85149; } .neu { color: #58a6ff; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { padding: 8px 12px; border-bottom: 1px solid #21262d; text-align: left; }
+    th { color: #8b949e; font-weight: 500; }
+    .signal-buy  { color: #3fb950; font-weight: 600; }
+    .signal-sell { color: #f85149; font-weight: 600; }
+    .status { padding: 8px 24px; font-size: 12px; color: #8b949e; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>📈 股票分析系统</h1>
+  <div class="toolbar">
+    <input id="symbol" type="text" placeholder="代码，如 000001 / AAPL" value="000001" style="width:160px" />
+    <select id="market">
+      <option value="A">A股</option>
+      <option value="HK">港股</option>
+      <option value="US">美股</option>
+    </select>
+    <select id="days">
+      <option value="90">近3月</option>
+      <option value="180">近6月</option>
+      <option value="365" selected>近1年</option>
+      <option value="730">近2年</option>
+    </select>
+    <select id="strategy">
+      <option value="ma">MA金叉</option>
+      <option value="macd">MACD</option>
+      <option value="rsi">RSI</option>
+      <option value="bollinger">布林带</option>
+      <option value="composite">复合</option>
+    </select>
+    <button onclick="loadAll()">刷新</button>
+    <button onclick="runBacktest()" style="background:#1f6feb;border-color:#1f6feb">回测</button>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('kline')">K线图</div>
+  <div class="tab" onclick="switchTab('signals')">信号</div>
+  <div class="tab" onclick="switchTab('backtest')">回测结果</div>
+  <div class="tab" onclick="switchTab('fundamental')">基本面</div>
+</div>
+
+<div id="panel-kline" class="panel active">
+  <div id="kline-chart"></div>
+</div>
+<div id="panel-signals" class="panel">
+  <div id="signal-chart"></div>
+  <table id="signals-table"><thead><tr><th>日期</th><th>收盘价</th><th>信号</th></tr></thead><tbody></tbody></table>
+</div>
+<div id="panel-backtest" class="panel">
+  <div class="metrics-grid" id="bt-metrics"></div>
+  <div id="equity-chart"></div>
+</div>
+<div id="panel-fundamental" class="panel">
+  <div class="metrics-grid" id="fundamental-metrics"></div>
+</div>
+
+<div class="status" id="status">就绪</div>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>

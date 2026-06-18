@@ -1,0 +1,1572 @@
+{
+  "mode": "trading",
+  "buy_candidates": [],
+  "watchlist": [
+    {
+      "symbol": "600176",
+      "name": "中国巨石",
+      "mode": "trading",
+      "verdict": "watch",
+      "buy_score": 48.0,
+      "sell_score": 8.0,
+      "confidence": "A",
+      "risks": {
+        "score": 8.0,
+        "flags": [
+          "one-day surge: 10.0%"
+        ]
+      },
+      "evidence": [
+        "trend: price=54.60, ma20=40.81, ma60=34.27, rsi14=78.39",
+        "flow: 5d=24.56, 20d=23.33, 60d=11.42, vol_ratio=0.75",
+        "fundamental: roe=-, revenue_growth=17.93, profit_growth=-",
+        "valuation: pe_ttm=57.18, pb=6.77, dividend_yield=0.67",
+        "sector: change=-4.74%, tags=玻璃玻纤, 建筑材料, 玻纤制造, 浙江板块, 富时罗素",
+        "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=-1.87",
+        "one-day surge: 10.0%",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=-1.87",
+        "discovery_amount=13166450303.0"
+      ],
+      "action": "Watchlist only; wait for a cleaner price, flow, or valuation confirmation.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 90.0,
+          "weight": 0.3,
+          "evidence": "trend: price=54.60, ma20=40.81, ma60=34.27, rsi14=78.39"
+        },
+        {
+          "name": "flow",
+          "score": 90.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=24.56, 20d=23.33, 60d=11.42, vol_ratio=0.75"
+        },
+        {
+          "name": "fundamental",
+          "score": 25.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=17.93, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 10.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=57.18, pb=6.77, dividend_yield=0.67"
+        },
+        {
+          "name": "sector",
+          "score": 20.0,
+          "weight": 0.15,
+          "evidence": "sector: change=-4.74%, tags=玻璃玻纤, 建筑材料, 玻纤制造, 浙江板块, 富时罗素"
+        },
+        {
+          "name": "catalyst",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=-1.87"
+        }
+      ]
+    },
+    {
+      "symbol": "600522",
+      "name": "中天科技",
+      "mode": "trading",
+      "verdict": "watch",
+      "buy_score": 47.0,
+      "sell_score": 0.0,
+      "confidence": "B",
+      "risks": {
+        "score": 0.0,
+        "flags": []
+      },
+      "evidence": [
+        "trend: price=54.91, ma20=46.14, ma60=37.68, rsi14=67.93",
+        "flow: 5d=-, 20d=-, 60d=-, vol_ratio=0.84",
+        "fundamental: roe=-, revenue_growth=34.71, profit_growth=-",
+        "valuation: pe_ttm=58.68, pb=4.93, dividend_yield=0.92",
+        "sector: change=1.10%, tags=通信设备, 通信, 通信线缆及配套, 江苏板块, 一带一路",
+        "catalyst: score=30.00, notes=discovered_by=f6_desc; discovery_change_pct=3.04",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=3.04",
+        "discovery_amount=14363759322.0"
+      ],
+      "action": "Watchlist only; wait for a cleaner price, flow, or valuation confirmation.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 100.0,
+          "weight": 0.3,
+          "evidence": "trend: price=54.91, ma20=46.14, ma60=37.68, rsi14=67.93"
+        },
+        {
+          "name": "flow",
+          "score": 0.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=-, 20d=-, 60d=-, vol_ratio=0.84"
+        },
+        {
+          "name": "fundamental",
+          "score": 25.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=34.71, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 10.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=58.68, pb=4.93, dividend_yield=0.92"
+        },
+        {
+          "name": "sector",
+          "score": 70.0,
+          "weight": 0.15,
+          "evidence": "sector: change=1.10%, tags=通信设备, 通信, 通信线缆及配套, 江苏板块, 一带一路"
+        },
+        {
+          "name": "catalyst",
+          "score": 30.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=30.00, notes=discovered_by=f6_desc; discovery_change_pct=3.04"
+        }
+      ]
+    },
+    {
+      "symbol": "002475",
+      "name": "立讯精密",
+      "mode": "trading",
+      "verdict": "watch",
+      "buy_score": 37.2,
+      "sell_score": 20.0,
+      "confidence": "B",
+      "risks": {
+        "score": 0.0,
+        "flags": []
+      },
+      "evidence": [
+        "trend: price=67.32, ma20=70.00, ma60=64.45, rsi14=47.38",
+        "flow: 5d=-, 20d=-, 60d=-, vol_ratio=0.93",
+        "fundamental: roe=-, revenue_growth=35.77, profit_growth=-",
+        "valuation: pe_ttm=28.52, pb=5.56, dividend_yield=0.51",
+        "sector: change=1.00%, tags=消费电子零部件及组装, 电子, 消费电子, 广东板块, 富时罗素",
+        "catalyst: score=15.00, notes=discovered_by=f6_desc; discovery_change_pct=4.01",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=4.01",
+        "discovery_amount=14519736982.85"
+      ],
+      "action": "Watchlist only; wait for a cleaner price, flow, or valuation confirmation.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 70.0,
+          "weight": 0.3,
+          "evidence": "trend: price=67.32, ma20=70.00, ma60=64.45, rsi14=47.38"
+        },
+        {
+          "name": "flow",
+          "score": 0.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=-, 20d=-, 60d=-, vol_ratio=0.93"
+        },
+        {
+          "name": "fundamental",
+          "score": 25.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=35.77, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 17.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=28.52, pb=5.56, dividend_yield=0.51"
+        },
+        {
+          "name": "sector",
+          "score": 70.0,
+          "weight": 0.15,
+          "evidence": "sector: change=1.00%, tags=消费电子零部件及组装, 电子, 消费电子, 广东板块, 富时罗素"
+        },
+        {
+          "name": "catalyst",
+          "score": 15.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=15.00, notes=discovered_by=f6_desc; discovery_change_pct=4.01"
+        }
+      ]
+    },
+    {
+      "symbol": "688525",
+      "name": "佰维存储",
+      "mode": "trading",
+      "verdict": "watch",
+      "buy_score": 36.0,
+      "sell_score": 44.0,
+      "confidence": "A",
+      "risks": {
+        "score": 24.0,
+        "flags": [
+          "PB very high: 20.5",
+          "medium-term capital flow is negative"
+        ]
+      },
+      "evidence": [
+        "trend: price=370.00, ma20=319.70, ma60=284.28, rsi14=65.70",
+        "flow: 5d=14.28, 20d=-22.88, 60d=-132.39, vol_ratio=1.21",
+        "fundamental: roe=-, revenue_growth=341.53, profit_growth=-",
+        "valuation: pe_ttm=44.18, pb=20.50, dividend_yield=0.06",
+        "sector: change=2.04%, tags=半导体, 电子, 数字芯片设计, 广东板块, 专精特新",
+        "catalyst: score=45.00, notes=discovered_by=f6_desc; discovery_change_pct=3.24",
+        "PB very high: 20.5",
+        "medium-term capital flow is negative",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=3.24",
+        "discovery_amount=15844742811.0"
+      ],
+      "action": "Watchlist only; wait for a cleaner price, flow, or valuation confirmation.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 100.0,
+          "weight": 0.3,
+          "evidence": "trend: price=370.00, ma20=319.70, ma60=284.28, rsi14=65.70"
+        },
+        {
+          "name": "flow",
+          "score": 50.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=14.28, 20d=-22.88, 60d=-132.39, vol_ratio=1.21"
+        },
+        {
+          "name": "fundamental",
+          "score": 25.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=341.53, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=44.18, pb=20.50, dividend_yield=0.06"
+        },
+        {
+          "name": "sector",
+          "score": 70.0,
+          "weight": 0.15,
+          "evidence": "sector: change=2.04%, tags=半导体, 电子, 数字芯片设计, 广东板块, 专精特新"
+        },
+        {
+          "name": "catalyst",
+          "score": 45.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=45.00, notes=discovered_by=f6_desc; discovery_change_pct=3.24"
+        }
+      ]
+    },
+    {
+      "symbol": "300308",
+      "name": "中际旭创",
+      "mode": "trading",
+      "verdict": "watch",
+      "buy_score": 31.0,
+      "sell_score": 12.0,
+      "confidence": "B",
+      "risks": {
+        "score": 12.0,
+        "flags": [
+          "PB very high: 40.0"
+        ]
+      },
+      "evidence": [
+        "trend: price=1276.11, ma20=1163.94, ma60=919.66, rsi14=66.94",
+        "flow: 5d=-, 20d=-, 60d=-, vol_ratio=0.70",
+        "fundamental: roe=-, revenue_growth=192.12, profit_growth=-",
+        "valuation: pe_ttm=95.20, pb=39.99, dividend_yield=0.10",
+        "sector: change=1.17%, tags=通信设备, 通信, 通信网络设备及器件, 山东板块, 基金重仓",
+        "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=6.14",
+        "PB very high: 40.0",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=6.14",
+        "discovery_amount=34128512271.93"
+      ],
+      "action": "Watchlist only; wait for a cleaner price, flow, or valuation confirmation.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 100.0,
+          "weight": 0.3,
+          "evidence": "trend: price=1276.11, ma20=1163.94, ma60=919.66, rsi14=66.94"
+        },
+        {
+          "name": "flow",
+          "score": 0.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=-, 20d=-, 60d=-, vol_ratio=0.70"
+        },
+        {
+          "name": "fundamental",
+          "score": 25.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=192.12, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=95.20, pb=39.99, dividend_yield=0.10"
+        },
+        {
+          "name": "sector",
+          "score": 70.0,
+          "weight": 0.15,
+          "evidence": "sector: change=1.17%, tags=通信设备, 通信, 通信网络设备及器件, 山东板块, 基金重仓"
+        },
+        {
+          "name": "catalyst",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=6.14"
+        }
+      ]
+    },
+    {
+      "symbol": "300502",
+      "name": "新易盛",
+      "mode": "trading",
+      "verdict": "watch",
+      "buy_score": 31.0,
+      "sell_score": 12.0,
+      "confidence": "B",
+      "risks": {
+        "score": 12.0,
+        "flags": [
+          "PB very high: 38.2"
+        ]
+      },
+      "evidence": [
+        "trend: price=557.88, ma20=514.45, ma60=422.87, rsi14=62.60",
+        "flow: 5d=-, 20d=-, 60d=-, vol_ratio=0.88",
+        "fundamental: roe=-, revenue_growth=105.76, profit_growth=-",
+        "valuation: pe_ttm=72.43, pb=38.17, dividend_yield=0.25",
+        "sector: change=1.13%, tags=通信设备, 通信网络设备及器件, 通信, 四川板块, HS300_",
+        "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=4.0",
+        "PB very high: 38.2",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=4.0",
+        "discovery_amount=22565949979.16"
+      ],
+      "action": "Watchlist only; wait for a cleaner price, flow, or valuation confirmation.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 100.0,
+          "weight": 0.3,
+          "evidence": "trend: price=557.88, ma20=514.45, ma60=422.87, rsi14=62.60"
+        },
+        {
+          "name": "flow",
+          "score": 0.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=-, 20d=-, 60d=-, vol_ratio=0.88"
+        },
+        {
+          "name": "fundamental",
+          "score": 25.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=105.76, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=72.43, pb=38.17, dividend_yield=0.25"
+        },
+        {
+          "name": "sector",
+          "score": 70.0,
+          "weight": 0.15,
+          "evidence": "sector: change=1.13%, tags=通信设备, 通信网络设备及器件, 通信, 四川板块, HS300_"
+        },
+        {
+          "name": "catalyst",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=4.0"
+        }
+      ]
+    },
+    {
+      "symbol": "300476",
+      "name": "胜宏科技",
+      "mode": "trading",
+      "verdict": "watch",
+      "buy_score": 27.25,
+      "sell_score": 12.0,
+      "confidence": "B",
+      "risks": {
+        "score": 12.0,
+        "flags": [
+          "PB very high: 20.4"
+        ]
+      },
+      "evidence": [
+        "trend: price=361.70, ma20=352.95, ma60=323.34, rsi14=55.21",
+        "flow: 5d=-, 20d=-, 60d=-, vol_ratio=1.03",
+        "fundamental: roe=-, revenue_growth=27.99, profit_growth=-",
+        "valuation: pe_ttm=75.96, pb=20.42, dividend_yield=0.63",
+        "sector: change=0.84%, tags=电子, 印制电路板, 元件, 广东板块, HS300_",
+        "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=1.49",
+        "PB very high: 20.4",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=1.49",
+        "discovery_amount=14663271969.8"
+      ],
+      "action": "Watchlist only; wait for a cleaner price, flow, or valuation confirmation.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 100.0,
+          "weight": 0.3,
+          "evidence": "trend: price=361.70, ma20=352.95, ma60=323.34, rsi14=55.21"
+        },
+        {
+          "name": "flow",
+          "score": 0.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=-, 20d=-, 60d=-, vol_ratio=1.03"
+        },
+        {
+          "name": "fundamental",
+          "score": 25.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=27.99, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=75.96, pb=20.42, dividend_yield=0.63"
+        },
+        {
+          "name": "sector",
+          "score": 45.0,
+          "weight": 0.15,
+          "evidence": "sector: change=0.84%, tags=电子, 印制电路板, 元件, 广东板块, HS300_"
+        },
+        {
+          "name": "catalyst",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=1.49"
+        }
+      ]
+    },
+    {
+      "symbol": "000725",
+      "name": "京东方Ａ",
+      "mode": "trading",
+      "verdict": "watch",
+      "buy_score": 26.5,
+      "sell_score": 8.0,
+      "confidence": "B",
+      "risks": {
+        "score": 8.0,
+        "flags": [
+          "one-day surge: 10.1%"
+        ]
+      },
+      "evidence": [
+        "trend: price=6.65, ma20=5.71, ma60=4.59, rsi14=68.40",
+        "flow: 5d=-, 20d=-, 60d=-, vol_ratio=0.54",
+        "fundamental: roe=-, revenue_growth=0.80, profit_growth=-",
+        "valuation: pe_ttm=41.77, pb=1.83, dividend_yield=1.61",
+        "sector: change=-1.71%, tags=光学光电子, 电子, 面板, 北京板块, 医美概念",
+        "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=-1.05",
+        "one-day surge: 10.1%",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=-1.05",
+        "discovery_amount=24923330124.82"
+      ],
+      "action": "Watchlist only; wait for a cleaner price, flow, or valuation confirmation.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 95.0,
+          "weight": 0.3,
+          "evidence": "trend: price=6.65, ma20=5.71, ma60=4.59, rsi14=68.40"
+        },
+        {
+          "name": "flow",
+          "score": 0.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=-, 20d=-, 60d=-, vol_ratio=0.54"
+        },
+        {
+          "name": "fundamental",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=0.80, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 30.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=41.77, pb=1.83, dividend_yield=1.61"
+        },
+        {
+          "name": "sector",
+          "score": 20.0,
+          "weight": 0.15,
+          "evidence": "sector: change=-1.71%, tags=光学光电子, 电子, 面板, 北京板块, 医美概念"
+        },
+        {
+          "name": "catalyst",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=-1.05"
+        }
+      ]
+    },
+    {
+      "symbol": "300475",
+      "name": "香农芯创",
+      "mode": "trading",
+      "verdict": "watch",
+      "buy_score": 23.25,
+      "sell_score": 20.0,
+      "confidence": "B",
+      "risks": {
+        "score": 20.0,
+        "flags": [
+          "PB very high: 23.7",
+          "one-day surge: 20.0%"
+        ]
+      },
+      "evidence": [
+        "trend: price=245.29, ma20=186.81, ma60=170.07, rsi14=72.26",
+        "flow: 5d=-, 20d=-, 60d=-, vol_ratio=1.41",
+        "fundamental: roe=-, revenue_growth=200.60, profit_growth=-",
+        "valuation: pe_ttm=62.08, pb=23.70, dividend_yield=0.04",
+        "sector: change=0.88%, tags=电子, 其他电子Ⅲ, 其他电子Ⅱ, 安徽板块, 融资融券",
+        "catalyst: score=30.00, notes=discovered_by=f6_desc; discovery_change_pct=3.35",
+        "PB very high: 23.7",
+        "one-day surge: 20.0%",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=3.35",
+        "discovery_amount=13417484471.03"
+      ],
+      "action": "Watchlist only; wait for a cleaner price, flow, or valuation confirmation.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 95.0,
+          "weight": 0.3,
+          "evidence": "trend: price=245.29, ma20=186.81, ma60=170.07, rsi14=72.26"
+        },
+        {
+          "name": "flow",
+          "score": 10.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=-, 20d=-, 60d=-, vol_ratio=1.41"
+        },
+        {
+          "name": "fundamental",
+          "score": 25.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=200.60, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=62.08, pb=23.70, dividend_yield=0.04"
+        },
+        {
+          "name": "sector",
+          "score": 45.0,
+          "weight": 0.15,
+          "evidence": "sector: change=0.88%, tags=电子, 其他电子Ⅲ, 其他电子Ⅱ, 安徽板块, 融资融券"
+        },
+        {
+          "name": "catalyst",
+          "score": 30.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=30.00, notes=discovered_by=f6_desc; discovery_change_pct=3.35"
+        }
+      ]
+    },
+    {
+      "symbol": "688008",
+      "name": "澜起科技",
+      "mode": "trading",
+      "verdict": "watch",
+      "buy_score": 23.0,
+      "sell_score": 27.0,
+      "confidence": "B",
+      "risks": {
+        "score": 27.0,
+        "flags": [
+          "PE TTM very high: 125.4",
+          "PB very high: 15.4"
+        ]
+      },
+      "evidence": [
+        "trend: price=262.50, ma20=249.21, ma60=198.22, rsi14=60.40",
+        "flow: 5d=-, 20d=-, 60d=-, vol_ratio=1.28",
+        "fundamental: roe=-, revenue_growth=19.52, profit_growth=-",
+        "valuation: pe_ttm=125.44, pb=15.39, dividend_yield=0.22",
+        "sector: change=2.08%, tags=半导体, 数字芯片设计, 电子, 上海板块, 富时罗素",
+        "catalyst: score=45.00, notes=discovered_by=f6_desc; discovery_change_pct=2.37",
+        "PE TTM very high: 125.4",
+        "PB very high: 15.4",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=2.37",
+        "discovery_amount=19627551203.0"
+      ],
+      "action": "Watchlist only; wait for a cleaner price, flow, or valuation confirmation.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 100.0,
+          "weight": 0.3,
+          "evidence": "trend: price=262.50, ma20=249.21, ma60=198.22, rsi14=60.40"
+        },
+        {
+          "name": "flow",
+          "score": 10.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=-, 20d=-, 60d=-, vol_ratio=1.28"
+        },
+        {
+          "name": "fundamental",
+          "score": 25.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=19.52, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=125.44, pb=15.39, dividend_yield=0.22"
+        },
+        {
+          "name": "sector",
+          "score": 70.0,
+          "weight": 0.15,
+          "evidence": "sector: change=2.08%, tags=半导体, 数字芯片设计, 电子, 上海板块, 富时罗素"
+        },
+        {
+          "name": "catalyst",
+          "score": 45.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=45.00, notes=discovered_by=f6_desc; discovery_change_pct=2.37"
+        }
+      ]
+    },
+    {
+      "symbol": "601138",
+      "name": "工业富联",
+      "mode": "trading",
+      "verdict": "watch",
+      "buy_score": 22.0,
+      "sell_score": 32.0,
+      "confidence": "B",
+      "risks": {
+        "score": 12.0,
+        "flags": [
+          "PB very high: 8.2"
+        ]
+      },
+      "evidence": [
+        "trend: price=72.64, ma20=72.69, ma60=64.04, rsi14=53.24",
+        "flow: 5d=-, 20d=-, 60d=-, vol_ratio=0.88",
+        "fundamental: roe=-, revenue_growth=56.52, profit_growth=-",
+        "valuation: pe_ttm=35.46, pb=8.18, dividend_yield=1.24",
+        "sector: change=1.01%, tags=消费电子, 消费电子零部件及组装, 电子, 广东板块, 区块链",
+        "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=7.7",
+        "PB very high: 8.2",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=7.7",
+        "discovery_amount=30437530510.0"
+      ],
+      "action": "Watchlist only; wait for a cleaner price, flow, or valuation confirmation.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 70.0,
+          "weight": 0.3,
+          "evidence": "trend: price=72.64, ma20=72.69, ma60=64.04, rsi14=53.24"
+        },
+        {
+          "name": "flow",
+          "score": 0.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=-, 20d=-, 60d=-, vol_ratio=0.88"
+        },
+        {
+          "name": "fundamental",
+          "score": 25.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=56.52, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=35.46, pb=8.18, dividend_yield=1.24"
+        },
+        {
+          "name": "sector",
+          "score": 70.0,
+          "weight": 0.15,
+          "evidence": "sector: change=1.01%, tags=消费电子, 消费电子零部件及组装, 电子, 广东板块, 区块链"
+        },
+        {
+          "name": "catalyst",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=7.7"
+        }
+      ]
+    },
+    {
+      "symbol": "688256",
+      "name": "寒武纪",
+      "mode": "trading",
+      "verdict": "watch",
+      "buy_score": 19.0,
+      "sell_score": 27.0,
+      "confidence": "B",
+      "risks": {
+        "score": 27.0,
+        "flags": [
+          "PE TTM very high: 305.2",
+          "PB very high: 64.4"
+        ]
+      },
+      "evidence": [
+        "trend: price=1320.00, ma20=1309.15, ma60=1055.73, rsi14=56.04",
+        "flow: 5d=-, 20d=-, 60d=-, vol_ratio=1.10",
+        "fundamental: roe=-, revenue_growth=159.56, profit_growth=-",
+        "valuation: pe_ttm=305.25, pb=64.43, dividend_yield=0.10",
+        "sector: change=2.39%, tags=数字芯片设计, 电子, 半导体, 北京板块, HS300_",
+        "catalyst: score=30.00, notes=discovered_by=f6_desc; discovery_change_pct=14.01",
+        "PE TTM very high: 305.2",
+        "PB very high: 64.4",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=14.01",
+        "discovery_amount=30109974550.0"
+      ],
+      "action": "Watchlist only; wait for a cleaner price, flow, or valuation confirmation.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 100.0,
+          "weight": 0.3,
+          "evidence": "trend: price=1320.00, ma20=1309.15, ma60=1055.73, rsi14=56.04"
+        },
+        {
+          "name": "flow",
+          "score": 0.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=-, 20d=-, 60d=-, vol_ratio=1.10"
+        },
+        {
+          "name": "fundamental",
+          "score": 25.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=159.56, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=305.25, pb=64.43, dividend_yield=0.10"
+        },
+        {
+          "name": "sector",
+          "score": 70.0,
+          "weight": 0.15,
+          "evidence": "sector: change=2.39%, tags=数字芯片设计, 电子, 半导体, 北京板块, HS300_"
+        },
+        {
+          "name": "catalyst",
+          "score": 30.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=30.00, notes=discovered_by=f6_desc; discovery_change_pct=14.01"
+        }
+      ]
+    }
+  ],
+  "risk_list": [
+    {
+      "symbol": "600584",
+      "name": "长电科技",
+      "mode": "trading",
+      "verdict": "avoid",
+      "buy_score": 35.0,
+      "sell_score": 47.0,
+      "confidence": "A",
+      "risks": {
+        "score": 12.0,
+        "flags": [
+          "medium-term capital flow is negative"
+        ]
+      },
+      "evidence": [
+        "trend: price=81.76, ma20=77.07, ma60=56.32, rsi14=63.15",
+        "flow: 5d=-4.62, 20d=-160.07, 60d=-146.45, vol_ratio=1.22",
+        "fundamental: roe=-, revenue_growth=-1.76, profit_growth=-",
+        "valuation: pe_ttm=88.55, pb=5.09, dividend_yield=0.16",
+        "sector: change=1.97%, tags=半导体, 集成电路封测, 电子, 江苏板块, 国产芯片",
+        "catalyst: score=30.00, notes=discovered_by=f6_desc; discovery_change_pct=1.26",
+        "medium-term capital flow is negative",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=1.26",
+        "discovery_amount=17866359215.0"
+      ],
+      "action": "Avoid new buys under current evidence.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 100.0,
+          "weight": 0.3,
+          "evidence": "trend: price=81.76, ma20=77.07, ma60=56.32, rsi14=63.15"
+        },
+        {
+          "name": "flow",
+          "score": 10.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=-4.62, 20d=-160.07, 60d=-146.45, vol_ratio=1.22"
+        },
+        {
+          "name": "fundamental",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=-1.76, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 10.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=88.55, pb=5.09, dividend_yield=0.16"
+        },
+        {
+          "name": "sector",
+          "score": 70.0,
+          "weight": 0.15,
+          "evidence": "sector: change=1.97%, tags=半导体, 集成电路封测, 电子, 江苏板块, 国产芯片"
+        },
+        {
+          "name": "catalyst",
+          "score": 30.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=30.00, notes=discovered_by=f6_desc; discovery_change_pct=1.26"
+        }
+      ]
+    },
+    {
+      "symbol": "688981",
+      "name": "中芯国际",
+      "mode": "trading",
+      "verdict": "avoid",
+      "buy_score": 33.5,
+      "sell_score": 47.0,
+      "confidence": "B",
+      "risks": {
+        "score": 27.0,
+        "flags": [
+          "PE TTM very high: 213.9",
+          "medium-term capital flow is negative"
+        ]
+      },
+      "evidence": [
+        "trend: price=134.70, ma20=134.35, ma60=116.82, rsi14=55.54",
+        "flow: 5d=2.23, 20d=-51.23, 60d=-84.04, vol_ratio=1.23",
+        "fundamental: roe=-, revenue_growth=8.07, profit_growth=-",
+        "valuation: pe_ttm=213.93, pb=7.21, dividend_yield=-",
+        "sector: change=3.13%, tags=集成电路制造, 电子, 半导体, HS300_, 融资融券",
+        "catalyst: score=30.00, notes=discovered_by=f6_desc; discovery_change_pct=4.49",
+        "PE TTM very high: 213.9",
+        "medium-term capital flow is negative",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=4.49",
+        "discovery_amount=16165231962.0"
+      ],
+      "action": "Avoid new buys under current evidence.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 100.0,
+          "weight": 0.3,
+          "evidence": "trend: price=134.70, ma20=134.35, ma60=116.82, rsi14=55.54"
+        },
+        {
+          "name": "flow",
+          "score": 50.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=2.23, 20d=-51.23, 60d=-84.04, vol_ratio=1.23"
+        },
+        {
+          "name": "fundamental",
+          "score": 15.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=8.07, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=213.93, pb=7.21, dividend_yield=-"
+        },
+        {
+          "name": "sector",
+          "score": 90.0,
+          "weight": 0.15,
+          "evidence": "sector: change=3.13%, tags=集成电路制造, 电子, 半导体, HS300_, 融资融券"
+        },
+        {
+          "name": "catalyst",
+          "score": 30.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=30.00, notes=discovered_by=f6_desc; discovery_change_pct=4.49"
+        }
+      ]
+    },
+    {
+      "symbol": "600487",
+      "name": "亨通光电",
+      "mode": "trading",
+      "verdict": "avoid",
+      "buy_score": 17.5,
+      "sell_score": 59.0,
+      "confidence": "A",
+      "risks": {
+        "score": 24.0,
+        "flags": [
+          "PB very high: 8.4",
+          "medium-term capital flow is negative"
+        ]
+      },
+      "evidence": [
+        "trend: price=111.00, ma20=88.54, ma60=70.50, rsi14=72.61",
+        "flow: 5d=-40.78, 20d=-42.19, 60d=-136.49, vol_ratio=0.96",
+        "fundamental: roe=-, revenue_growth=34.09, profit_growth=-",
+        "valuation: pe_ttm=84.79, pb=8.45, dividend_yield=0.34",
+        "sector: change=1.09%, tags=通信设备, 通信, 通信线缆及配套, 江苏板块, 6G概念",
+        "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=1.02",
+        "PB very high: 8.4",
+        "medium-term capital flow is negative",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=1.02",
+        "discovery_amount=19587716823.0"
+      ],
+      "action": "Avoid new buys under current evidence.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 95.0,
+          "weight": 0.3,
+          "evidence": "trend: price=111.00, ma20=88.54, ma60=70.50, rsi14=72.61"
+        },
+        {
+          "name": "flow",
+          "score": 0.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=-40.78, 20d=-42.19, 60d=-136.49, vol_ratio=0.96"
+        },
+        {
+          "name": "fundamental",
+          "score": 25.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=34.09, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=84.79, pb=8.45, dividend_yield=0.34"
+        },
+        {
+          "name": "sector",
+          "score": 70.0,
+          "weight": 0.15,
+          "evidence": "sector: change=1.09%, tags=通信设备, 通信, 通信线缆及配套, 江苏板块, 6G概念"
+        },
+        {
+          "name": "catalyst",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=1.02"
+        }
+      ]
+    },
+    {
+      "symbol": "688041",
+      "name": "海光信息",
+      "mode": "trading",
+      "verdict": "avoid",
+      "buy_score": 17.0,
+      "sell_score": 59.0,
+      "confidence": "B",
+      "risks": {
+        "score": 39.0,
+        "flags": [
+          "PE TTM very high: 262.8",
+          "PB very high: 30.5",
+          "medium-term capital flow is negative"
+        ]
+      },
+      "evidence": [
+        "trend: price=308.22, ma20=295.22, ma60=275.56, rsi14=55.48",
+        "flow: 5d=38.97, 20d=-15.17, 60d=-87.03, vol_ratio=1.13",
+        "fundamental: roe=-, revenue_growth=68.06, profit_growth=-",
+        "valuation: pe_ttm=262.80, pb=30.49, dividend_yield=0.07",
+        "sector: change=2.31%, tags=数字芯片设计, 电子, 半导体, 天津板块, HS300_",
+        "catalyst: score=30.00, notes=discovered_by=f6_desc; discovery_change_pct=6.74",
+        "PE TTM very high: 262.8",
+        "PB very high: 30.5",
+        "medium-term capital flow is negative",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=6.74",
+        "discovery_amount=16220709285.0"
+      ],
+      "action": "Avoid new buys under current evidence.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 100.0,
+          "weight": 0.3,
+          "evidence": "trend: price=308.22, ma20=295.22, ma60=275.56, rsi14=55.48"
+        },
+        {
+          "name": "flow",
+          "score": 40.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=38.97, 20d=-15.17, 60d=-87.03, vol_ratio=1.13"
+        },
+        {
+          "name": "fundamental",
+          "score": 25.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=68.06, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=262.80, pb=30.49, dividend_yield=0.07"
+        },
+        {
+          "name": "sector",
+          "score": 70.0,
+          "weight": 0.15,
+          "evidence": "sector: change=2.31%, tags=数字芯片设计, 电子, 半导体, 天津板块, HS300_"
+        },
+        {
+          "name": "catalyst",
+          "score": 30.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=30.00, notes=discovered_by=f6_desc; discovery_change_pct=6.74"
+        }
+      ]
+    },
+    {
+      "symbol": "002384",
+      "name": "东山精密",
+      "mode": "trading",
+      "verdict": "avoid",
+      "buy_score": 16.5,
+      "sell_score": 59.0,
+      "confidence": "B",
+      "risks": {
+        "score": 39.0,
+        "flags": [
+          "PE TTM very high: 230.7",
+          "PB very high: 20.8",
+          "medium-term capital flow is negative"
+        ]
+      },
+      "evidence": [
+        "trend: price=256.92, ma20=221.99, ma60=180.81, rsi14=66.10",
+        "flow: 5d=34.10, 20d=-37.77, 60d=-190.13, vol_ratio=1.21",
+        "fundamental: roe=-, revenue_growth=52.72, profit_growth=-",
+        "valuation: pe_ttm=230.66, pb=20.79, dividend_yield=0.12",
+        "sector: change=1.65%, tags=元件, 电子, 印制电路板, 江苏板块, 华为概念",
+        "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=5.73",
+        "PE TTM very high: 230.7",
+        "PB very high: 20.8",
+        "medium-term capital flow is negative",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=5.73",
+        "discovery_amount=18826897307.81"
+      ],
+      "action": "Avoid new buys under current evidence.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 100.0,
+          "weight": 0.3,
+          "evidence": "trend: price=256.92, ma20=221.99, ma60=180.81, rsi14=66.10"
+        },
+        {
+          "name": "flow",
+          "score": 50.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=34.10, 20d=-37.77, 60d=-190.13, vol_ratio=1.21"
+        },
+        {
+          "name": "fundamental",
+          "score": 25.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=52.72, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=230.66, pb=20.79, dividend_yield=0.12"
+        },
+        {
+          "name": "sector",
+          "score": 70.0,
+          "weight": 0.15,
+          "evidence": "sector: change=1.65%, tags=元件, 电子, 印制电路板, 江苏板块, 华为概念"
+        },
+        {
+          "name": "catalyst",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=5.73"
+        }
+      ]
+    },
+    {
+      "symbol": "300750",
+      "name": "宁德时代",
+      "mode": "trading",
+      "verdict": "avoid",
+      "buy_score": 14.8,
+      "sell_score": 45.0,
+      "confidence": "B",
+      "risks": {
+        "score": 0.0,
+        "flags": []
+      },
+      "evidence": [
+        "trend: price=399.00, ma20=406.65, ma60=414.85, rsi14=45.20",
+        "flow: 5d=-, 20d=-, 60d=-, vol_ratio=0.79",
+        "fundamental: roe=-, revenue_growth=52.45, profit_growth=-",
+        "valuation: pe_ttm=23.37, pb=5.17, dividend_yield=2.03",
+        "sector: change=-1.24%, tags=电池, 锂电池, 电力设备, 福建板块, 新能源车",
+        "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=-1.73",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=-1.73",
+        "discovery_amount=14202285486.81"
+      ],
+      "action": "Avoid new buys under current evidence.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 20.0,
+          "weight": 0.3,
+          "evidence": "trend: price=399.00, ma20=406.65, ma60=414.85, rsi14=45.20"
+        },
+        {
+          "name": "flow",
+          "score": 0.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=-, 20d=-, 60d=-, vol_ratio=0.79"
+        },
+        {
+          "name": "fundamental",
+          "score": 25.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=52.45, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 33.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=23.37, pb=5.17, dividend_yield=2.03"
+        },
+        {
+          "name": "sector",
+          "score": 20.0,
+          "weight": 0.15,
+          "evidence": "sector: change=-1.24%, tags=电池, 锂电池, 电力设备, 福建板块, 新能源车"
+        },
+        {
+          "name": "catalyst",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=-1.73"
+        }
+      ]
+    },
+    {
+      "symbol": "300394",
+      "name": "天孚通信",
+      "mode": "trading",
+      "verdict": "avoid",
+      "buy_score": 14.0,
+      "sell_score": 59.0,
+      "confidence": "B",
+      "risks": {
+        "score": 39.0,
+        "flags": [
+          "PE TTM very high: 165.4",
+          "PB very high: 60.1",
+          "medium-term capital flow is negative"
+        ]
+      },
+      "evidence": [
+        "trend: price=329.33, ma20=306.52, ma60=263.15, rsi14=59.11",
+        "flow: 5d=2.46, 20d=-7.96, 60d=-100.90, vol_ratio=1.05",
+        "fundamental: roe=-, revenue_growth=40.82, profit_growth=-",
+        "valuation: pe_ttm=165.41, pb=60.08, dividend_yield=0.36",
+        "sector: change=1.08%, tags=通信设备, 通信网络设备及器件, 通信, 江苏板块, HS300_",
+        "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=1.79",
+        "PE TTM very high: 165.4",
+        "PB very high: 60.1",
+        "medium-term capital flow is negative",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=1.79",
+        "discovery_amount=14908004491.98"
+      ],
+      "action": "Avoid new buys under current evidence.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 100.0,
+          "weight": 0.3,
+          "evidence": "trend: price=329.33, ma20=306.52, ma60=263.15, rsi14=59.11"
+        },
+        {
+          "name": "flow",
+          "score": 40.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=2.46, 20d=-7.96, 60d=-100.90, vol_ratio=1.05"
+        },
+        {
+          "name": "fundamental",
+          "score": 25.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=40.82, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=165.41, pb=60.08, dividend_yield=0.36"
+        },
+        {
+          "name": "sector",
+          "score": 70.0,
+          "weight": 0.15,
+          "evidence": "sector: change=1.08%, tags=通信设备, 通信网络设备及器件, 通信, 江苏板块, HS300_"
+        },
+        {
+          "name": "catalyst",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=0.00, notes=discovered_by=f6_desc; discovery_change_pct=1.79"
+        }
+      ]
+    },
+    {
+      "symbol": "603986",
+      "name": "兆易创新",
+      "mode": "trading",
+      "verdict": "avoid",
+      "buy_score": 13.5,
+      "sell_score": 35.0,
+      "confidence": "B",
+      "risks": {
+        "score": 35.0,
+        "flags": [
+          "PE TTM very high: 142.9",
+          "PB very high: 16.3",
+          "one-day surge: 10.0%"
+        ]
+      },
+      "evidence": [
+        "trend: price=586.04, ma20=495.69, ma60=366.91, rsi14=72.53",
+        "flow: 5d=-, 20d=-, 60d=-, vol_ratio=1.27",
+        "fundamental: roe=-, revenue_growth=119.38, profit_growth=-",
+        "valuation: pe_ttm=142.93, pb=16.26, dividend_yield=0.17",
+        "sector: change=2.16%, tags=半导体, 电子, 数字芯片设计, 北京板块, 国产芯片",
+        "catalyst: score=45.00, notes=discovered_by=f6_desc; discovery_change_pct=8.1",
+        "PE TTM very high: 142.9",
+        "PB very high: 16.3",
+        "one-day surge: 10.0%",
+        "discovered_by=f6_desc",
+        "discovery_change_pct=8.1",
+        "discovery_amount=32722473844.0"
+      ],
+      "action": "Avoid new buys under current evidence.",
+      "factors": [
+        {
+          "name": "trend",
+          "score": 95.0,
+          "weight": 0.3,
+          "evidence": "trend: price=586.04, ma20=495.69, ma60=366.91, rsi14=72.53"
+        },
+        {
+          "name": "flow",
+          "score": 10.0,
+          "weight": 0.25,
+          "evidence": "flow: 5d=-, 20d=-, 60d=-, vol_ratio=1.27"
+        },
+        {
+          "name": "fundamental",
+          "score": 25.0,
+          "weight": 0.1,
+          "evidence": "fundamental: roe=-, revenue_growth=119.38, profit_growth=-"
+        },
+        {
+          "name": "valuation",
+          "score": 0.0,
+          "weight": 0.1,
+          "evidence": "valuation: pe_ttm=142.93, pb=16.26, dividend_yield=0.17"
+        },
+        {
+          "name": "sector",
+          "score": 70.0,
+          "weight": 0.15,
+          "evidence": "sector: change=2.16%, tags=半导体, 电子, 数字芯片设计, 北京板块, 国产芯片"
+        },
+        {
+          "name": "catalyst",
+          "score": 45.0,
+          "weight": 0.1,
+          "evidence": "catalyst: score=45.00, notes=discovered_by=f6_desc; discovery_change_pct=8.1"
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "as_of": "2026-06-17",
+  "universe": [
+    {
+      "market": "A",
+      "symbol": "300308",
+      "name": "中际旭创",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=6.14",
+        "discovery_amount=34128512271.93"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "603986",
+      "name": "兆易创新",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=8.1",
+        "discovery_amount=32722473844.0"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "601138",
+      "name": "工业富联",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=7.7",
+        "discovery_amount=30437530510.0"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "688256",
+      "name": "寒武纪",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=14.01",
+        "discovery_amount=30109974550.0"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "000725",
+      "name": "京东方Ａ",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=-1.05",
+        "discovery_amount=24923330124.82"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "300502",
+      "name": "新易盛",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=4.0",
+        "discovery_amount=22565949979.16"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "688008",
+      "name": "澜起科技",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=2.37",
+        "discovery_amount=19627551203.0"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "600487",
+      "name": "亨通光电",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=1.02",
+        "discovery_amount=19587716823.0"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "002384",
+      "name": "东山精密",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=5.73",
+        "discovery_amount=18826897307.81"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "600584",
+      "name": "长电科技",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=1.26",
+        "discovery_amount=17866359215.0"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "688041",
+      "name": "海光信息",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=6.74",
+        "discovery_amount=16220709285.0"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "688981",
+      "name": "中芯国际",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=4.49",
+        "discovery_amount=16165231962.0"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "688525",
+      "name": "佰维存储",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=3.24",
+        "discovery_amount=15844742811.0"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "300394",
+      "name": "天孚通信",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=1.79",
+        "discovery_amount=14908004491.98"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "300476",
+      "name": "胜宏科技",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=1.49",
+        "discovery_amount=14663271969.8"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "002475",
+      "name": "立讯精密",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=4.01",
+        "discovery_amount=14519736982.85"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "600522",
+      "name": "中天科技",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=3.04",
+        "discovery_amount=14363759322.0"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "300750",
+      "name": "宁德时代",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=-1.73",
+        "discovery_amount=14202285486.81"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "300475",
+      "name": "香农芯创",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=3.35",
+        "discovery_amount=13417484471.03"
+      ],
+      "tags": []
+    },
+    {
+      "market": "A",
+      "symbol": "600176",
+      "name": "中国巨石",
+      "notes": [
+        "discovered_by=f6_desc",
+        "discovery_change_pct=-1.87",
+        "discovery_amount=13166450303.0"
+      ],
+      "tags": []
+    }
+  ],
+  "note": "K-line/realtime fields are clipped to as_of; fundamentals may use latest free endpoint data."
+}

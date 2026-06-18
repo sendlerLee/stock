@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "request_id": "stock-agent-full",
+  "status": "stopped",
+  "current_round": 0,
+  "max_rounds": 5,
+  "consecutive_failures": 0,
+  "no_progress_count": 0,
+  "last_result": "actionable stocks found",
+  "last_evidence": [
+    "Action states now distinguish buy_now, probe, wait_pullback, wait_breakout, hold_watch, reduce_protect, avoid.",
+    "Real trading scan produced actionable states: 中芯国际 688981 buy_now; 汇丰控股 00005, HOOD, 快手-W 01024, TSM, AMD, LLY, ARM, CRWV probe.",
+    "Generated reports/actionable_stocks_2026-06-18.md and stopped expanding the stock pool after actionable names appeared.",
+    "Focused verification passed: 10 agent tests passed."
+  ],
+  "feedback_for_next_round": [
+    "Review reports/actionable_stocks_2026-06-18.md; next optional increment is fund-flow reliability and per-market threshold calibration."
+  ],
+  "stop_reason": "Actionable stocks found and report generated.",
+  "updated_at": "2026-06-18T09:27:18Z"
+}

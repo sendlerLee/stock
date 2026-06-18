@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "project": "stock",
+  "request_id": "stock-agent-full",
+  "request_title": "Build full stock selection agent",
+  "rules": {
+    "one_increment_per_run": true,
+    "do_not_delete_unfinished_items": true,
+    "require_evidence_before_pass": true
+  },
+  "features": [
+    {
+      "id": "F001",
+      "title": "Snapshot data adapter",
+      "status": "pending",
+      "priority": "high",
+      "acceptance": [
+        "Build StockSnapshot objects from market K-line data, realtime quote, valuation, flow, sector and notes.",
+        "Adapter works with injected providers so tests do not require network."
+      ],
+      "verification": [
+        "pytest tests/test_agent_snapshot.py -q"
+      ],
+      "evidence": [
+        "26 tests passed; real trading scan produced 华虹宏力 watch and 招商银行 avoid for short-term trading; real position scan produced 招商银行 watch and 688347 avoid.",
+        "Generated 20-stock discovered A-share report: 0 buy candidates, 12 watchlist, 8 risk/avoid, 0 errors."
+      ]
+    },
+    {
+      "id": "F002",
+      "title": "Batch scanner and report model",
+      "status": "passed",
+      "priority": "high",
+      "acceptance": [
+        "Scan a user-provided stock universe in position or trading mode.",
+        "Return ranked buy candidates, watchlist, reduce/avoid list, and a readable text report."
+      ],
+      "verification": [
+        "pytest tests/test_agent_scanner.py -q",
+        "python3 scripts/run_stock_agent.py --sample --mode trading"
+      ],
+      "evidence": [
+        "format_report now outputs status plus six dimensions per stock; JSON decisions include status and dimensions.",
+        "Generated reports/stock_selection_result_2026-06-18.md from real A/HK/US position and trading scans.",
+        "Focused verification passed: 8 agent tests passed after scanner/report changes.",
+        "Action states now distinguish buy_now, probe, wait_pullback, wait_breakout, hold_watch, reduce_protect, avoid.",
+        "Real trading scan produced actionable states: 中芯国际 688981 buy_now; 汇丰控股 00005, HOOD, 快手-W 01024, TSM, AMD, LLY, ARM, CRWV probe.",
+        "Generated reports/actionable_stocks_2026-06-18.md and stopped expanding the stock pool after actionable names appeared.",
+        "Focused verification passed: 10 agent tests passed."
+      ]
+    },
+    {
+      "id": "F003",
+      "title": "API integration",
+      "status": "pending",
+      "priority": "medium",
+      "acceptance": [
+        "Expose a FastAPI endpoint for scanning a small explicit universe.",
+        "Endpoint returns structured decisions without auto-trading behavior."
+      ],
+      "verification": [
+        "pytest tests/test_agent_api.py -q"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "F004",
+      "title": "Real small-universe smoke validation",
+      "status": "pending",
+      "priority": "high",
+      "acceptance": [
+        "Run the scanner on a small real universe including 招商银行 and 华虹宏力.",
+        "Capture limitations from any flaky external endpoint."
+      ],
+      "verification": [
+        "python3 scripts/run_stock_agent.py --symbols A:600036,A:688347,HK:01347 --mode trading"
+      ],
+      "evidence": []
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "project": "stock",
+  "rules": {
+    "one_increment_per_run": true,
+    "do_not_delete_unfinished_items": true,
+    "require_evidence_before_pass": true
+  },
+  "features": [
+    {
+      "id": "F001",
+      "title": "Replace this placeholder with the first concrete task",
+      "status": "pending",
+      "priority": "high",
+      "acceptance": [
+        "Describe observable behavior, invariant, or user outcome."
+      ],
+      "verification": [
+        "Add the exact command, browser flow, or manual check required."
+      ],
+      "evidence": []
+    }
+  ]
+}

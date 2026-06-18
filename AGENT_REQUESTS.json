@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "active_request": "stock-agent-full",
+  "requests": [
+    {
+      "id": "stock-agent-full",
+      "title": "Build full stock selection agent",
+      "status": "active",
+      "mode": "lightweight",
+      "path": "agent-runs/stock-agent-full",
+      "supersedes": null,
+      "created_at": "2026-06-18T06:08:02Z",
+      "updated_at": "2026-06-18T09:27:18Z"
+    }
+  ]
+}
