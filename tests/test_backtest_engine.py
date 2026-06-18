@@ -162,3 +162,40 @@ def test_cooldown_dedup_one_trade_per_60_days():
 
     assert len(trades) == 1
     assert trades[0].signal_date == date(2024, 1, 1)
+
+
+def test_return_formula_and_insufficient_data():
+    from src.backtest.results import build_trades
+    from src.agent.stock_agent import ActionState, AgentVerdict, AgentMode
+
+    # K 线：每天 close 递增 1%，open = close（简化定位）
+    n = 30
+    dates = pd.date_range("2024-01-01", periods=n, freq="D")
+    closes = [100 * (1.01 ** i) for i in range(n)]
+    kline = pd.DataFrame(
+        {
+            "date": dates,
+            "open": closes,
+            "high": closes, "low": closes,
+            "close": closes,
+            "volume": [1000.0] * n, "amount": [c * 1000 for c in closes],
+        }
+    )
+    # 信号在 2024-01-01（idx 0），entry 在 idx 1（01-02）
+    signals = [SignalRecord(
+        signal_date=date(2024, 1, 1), symbol="000001", name="T", market="A",
+        mode=AgentMode.TRADING, action_state=ActionState.PROBE,
+        verdict=AgentVerdict.WATCH, buy_score=60.0, sell_score=10.0,
+    )]
+    cache = {"A:000001": kline}
+
+    trades = build_trades(signals, kline_cache=cache, cooldown_days=60, windows=(5, 10, 20, 60))
+    assert len(trades) == 1
+    t = trades[0]
+    # entry_price = open[idx1] = closes[1] = 101.0
+    assert t.entry_price == 101.0
+    # return_5 = close[idx6]/open[idx1] - 1 = closes[6]/closes[1] - 1
+    expected_5 = closes[6] / closes[1] - 1
+    assert abs(t.returns[5] - round(expected_5, 4)) < 1e-6
+    # 60 天窗口超出 30 根 bar → None
+    assert t.returns[60] is None
