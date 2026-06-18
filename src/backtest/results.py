@@ -101,3 +101,85 @@ def build_trades(
         last_entry_idx[sig.symbol] = entry_i
 
     return trades
+
+
+def _window_stats(values: list[float]) -> dict:
+    """单档窗口的统计量。"""
+    if not values:
+        return {"count": 0, "win_rate": None, "mean_return": None,
+                "median_return": None, "p25": None, "p75": None}
+    wins = sum(1 for v in values if v > 0)
+    s = pd.Series(values)
+    return {
+        "count": len(values),
+        "win_rate": round(wins / len(values), 4),
+        "mean_return": round(float(s.mean()), 4),
+        "median_return": round(float(s.median()), 4),
+        "p25": round(float(s.quantile(0.25)), 4),
+        "p75": round(float(s.quantile(0.75)), 4),
+    }
+
+
+def compute_metrics(
+    trades: list[TradeRecord],
+    windows: tuple[int, ...] = DEFAULT_WINDOWS,
+) -> dict:
+    """按 action_state 分组，算每档窗口胜率/均值/中位/分位/样本量。
+
+    返回 {(group_name, group_value): {window: stats}}。
+    group_name 固定 "action_state"；另加 ("benchmark", "signal_equal_weight")。
+    """
+    metrics: dict = {}
+    # 按 action_state 分组
+    by_state: dict[str, list[TradeRecord]] = {}
+    for t in trades:
+        by_state.setdefault(t.action_state.value, []).append(t)
+    for state, group in by_state.items():
+        per_window: dict[int, dict] = {}
+        for n in windows:
+            vals = [t.returns[n] for t in group if t.returns.get(n) is not None]
+            per_window[n] = _window_stats(vals)
+        metrics[("action_state", state)] = per_window
+
+    # 基准：所有交易等权（信号组自身的等权均值）
+    per_window_bench: dict[int, dict] = {}
+    for n in windows:
+        vals = [t.returns[n] for t in trades if t.returns.get(n) is not None]
+        per_window_bench[n] = _window_stats(vals)
+    metrics[("benchmark", "signal_equal_weight")] = per_window_bench
+    return metrics
+
+
+def compute_benchmark(
+    targets_cache_keys: list[str],
+    kline_cache: dict[str, pd.DataFrame],
+    entry_dates: list[date],
+    windows: tuple[int, ...] = DEFAULT_WINDOWS,
+) -> dict[int, dict]:
+    """等权持有全池基准：每个 entry_date，全池平均 N 日收益。
+
+    用于回答"信号是否跑赢盲选"。
+    """
+    per_window: dict[int, dict] = {}
+    all_returns: dict[int, list[float]] = {n: [] for n in windows}
+    for key in targets_cache_keys:
+        df = kline_cache.get(key)
+        if df is None or df.empty:
+            continue
+        idx_map = _bar_index(df)
+        closes = df["close"].tolist()
+        opens = df["open"].tolist()
+        for ed in entry_dates:
+            ei = idx_map.get(ed)
+            if ei is None:
+                continue
+            ep = float(opens[ei])
+            if not ep:
+                continue
+            for n in windows:
+                xi = ei + n
+                if xi < len(df):
+                    all_returns[n].append(round(closes[xi] / ep - 1, 4))
+    for n in windows:
+        per_window[n] = _window_stats(all_returns[n])
+    return per_window

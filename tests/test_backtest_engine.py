@@ -199,3 +199,24 @@ def test_return_formula_and_insufficient_data():
     assert abs(t.returns[5] - round(expected_5, 4)) < 1e-6
     # 60 天窗口超出 30 根 bar → None
     assert t.returns[60] is None
+
+
+def test_metrics_aggregation_win_rate():
+    from src.backtest.results import compute_metrics, TradeRecord
+    from src.agent.stock_agent import ActionState
+
+    # 4 笔 PROBE 交易，5 天收益：+0.02, +0.01, -0.01, -0.03
+    trades = [
+        TradeRecord(
+            signal_date=date(2024, 1, d), symbol=f"S{d}", name="T",
+            action_state=ActionState.PROBE, buy_score=60.0,
+            entry_date=date(2024, 1, d + 1), entry_price=100.0,
+            returns={5: r, 10: None, 20: None, 60: None},
+        )
+        for d, r in [(1, 0.02), (2, 0.01), (3, -0.01), (4, -0.03)]
+    ]
+    metrics = compute_metrics(trades, windows=(5, 10, 20, 60))
+    probe5 = metrics[("action_state", ActionState.PROBE.value)][5]
+    assert probe5["count"] == 4
+    assert probe5["win_rate"] == 0.5  # 2 正 2 负
+    assert abs(probe5["mean_return"] - (-0.0025)) < 1e-4
