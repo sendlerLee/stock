@@ -6,7 +6,7 @@ import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from src.backtest.engine import prefetch_klines, SignalRecord
+from src.backtest.engine import prefetch_klines, SignalRecord, run_backtest
 
 
 class FakeProvider:
@@ -73,3 +73,67 @@ def test_prefetch_klines_caches_to_provider(tmp_path, monkeypatch):
     calls_before = fake.calls
     prefetch_klines(targets, fake, start=date(2024, 1, 1), end=date(2024, 1, 31))
     assert fake.calls == calls_before  # DB 命中，未再调网络
+
+
+def _sample_kline_with_open(n=120):
+    """K 线含每日 open/close，从 2024-01-01 起，用于收益计算。"""
+    dates = pd.date_range("2024-01-01", periods=n, freq="D")
+    closes = [10 + i * 0.1 for i in range(n)]
+    return pd.DataFrame(
+        {
+            "date": dates,
+            "open": [c - 0.05 for c in closes],
+            "high": [c + 0.2 for c in closes],
+            "low": [c - 0.2 for c in closes],
+            "close": closes,
+            "volume": [1000.0] * n,
+            "amount": [c * 1000 for c in closes],
+        }
+    )
+
+
+def test_run_backtest_produces_signals():
+    from src.backtest.engine import run_backtest
+
+    # 构造 90 天温和上行 K 线，使 trend 因子走强
+    n = 90
+    dates = pd.date_range("2024-01-01", periods=n, freq="D")
+    closes = [10 + i * 0.2 for i in range(n)]  # 温和上行
+    kline = pd.DataFrame(
+        {
+            "date": dates,
+            "open": [c - 0.1 for c in closes],
+            "high": [c + 0.3 for c in closes],
+            "low": [c - 0.3 for c in closes],
+            "close": closes,
+            "volume": [2000.0] * n,
+            "amount": [c * 2000 for c in closes],
+        }
+    )
+    fake = FakeProvider(kline)
+    from config import Market
+    from src.agent.providers import StockTarget
+    from src.agent.stock_agent import AgentMode
+
+    targets = [StockTarget(Market.A, "000001", name="TEST")]
+    # 注入 kline_cache 绕过 DB，避免真实 DB 中的旧数据污染测试
+    cache = {"A:000001": kline}
+    signals = run_backtest(
+        targets,
+        provider=fake,
+        start=date(2024, 3, 1),
+        end=date(2024, 3, 5),
+        mode=AgentMode.TRADING,
+        kline_cache=cache,
+    )
+
+    # 2024-03-01 ~ 03-05 共 5 个交易日，每天 1 个信号
+    assert len(signals) == 5
+    assert all(s.symbol == "000001" for s in signals)
+    assert all(s.mode == AgentMode.TRADING for s in signals)
+    # 温和上行趋势 → action_state 应属于可操作类（非 AVOID/REDUCE）
+    from src.agent.stock_agent import ActionState
+
+    actionable = {ActionState.BUY_NOW, ActionState.PROBE, ActionState.WAIT_PULLBACK,
+                  ActionState.WAIT_BREAKOUT, ActionState.HOLD_WATCH}
+    assert all(s.action_state in actionable for s in signals)
