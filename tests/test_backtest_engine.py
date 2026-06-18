@@ -220,3 +220,47 @@ def test_metrics_aggregation_win_rate():
     assert probe5["count"] == 4
     assert probe5["win_rate"] == 0.5  # 2 正 2 负
     assert abs(probe5["mean_return"] - (-0.0025)) < 1e-4
+
+
+def test_report_contains_required_sections():
+    from src.backtest.report import render_report
+    from src.backtest.results import TradeRecord
+    from src.agent.stock_agent import ActionState
+
+    trades = [
+        TradeRecord(
+            signal_date=date(2024, 1, 1), symbol="S1", name="T1",
+            action_state=ActionState.PROBE, buy_score=60.0,
+            entry_date=date(2024, 1, 2), entry_price=100.0,
+            returns={5: 0.05, 10: 0.08, 20: None, 60: None},
+        ),
+        TradeRecord(
+            signal_date=date(2024, 1, 3), symbol="S2", name="T2",
+            action_state=ActionState.BUY_NOW, buy_score=82.0,
+            entry_date=date(2024, 1, 4), entry_price=50.0,
+            returns={5: -0.02, 10: 0.01, 20: 0.03, 60: None},
+        ),
+    ]
+    metrics = {
+        ("action_state", "probe"): {5: {"count": 1, "win_rate": 1.0, "mean_return": 0.05,
+                                         "median_return": 0.05, "p25": 0.05, "p75": 0.05}},
+        ("action_state", "buy_now"): {5: {"count": 1, "win_rate": 0.0, "mean_return": -0.02,
+                                           "median_return": -0.02, "p25": -0.02, "p75": -0.02}},
+        ("benchmark", "signal_equal_weight"): {5: {"count": 2, "win_rate": 0.5,
+                                                     "mean_return": 0.015, "median_return": 0.015,
+                                                     "p25": 0.015, "p75": 0.015}},
+    }
+    benchmark = {5: {"count": 26, "win_rate": 0.5, "mean_return": 0.01,
+                      "median_return": 0.01, "p25": 0.0, "p75": 0.02}}
+    md = render_report(
+        start=date(2024, 1, 1), end=date(2024, 6, 1), mode="trading",
+        universe_size=26, total_signals=100, total_trades=2,
+        metrics=metrics, benchmark=benchmark, trades=trades,
+    )
+    assert "回测报告" in md
+    assert "已知偏差" in md
+    assert "未来函数" in md
+    assert "buy_now" in md
+    assert "probe" in md
+    assert "等权基准" in md or "基准" in md
+    assert "S1" in md  # 明细
