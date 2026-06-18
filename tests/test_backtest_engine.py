@@ -137,3 +137,28 @@ def test_run_backtest_produces_signals():
     actionable = {ActionState.BUY_NOW, ActionState.PROBE, ActionState.WAIT_PULLBACK,
                   ActionState.WAIT_BREAKOUT, ActionState.HOLD_WATCH}
     assert all(s.action_state in actionable for s in signals)
+
+
+def test_cooldown_dedup_one_trade_per_60_days():
+    from src.backtest.results import build_trades
+    from src.agent.stock_agent import ActionState, AgentVerdict, AgentMode
+
+    # 同一股票连续 30 天 buy_now，冷却窗口 60 天 → 只应产出 1 笔交易
+    signals = [
+        SignalRecord(
+            signal_date=date(2024, 1, d),
+            symbol="000001", name="T", market="A",
+            mode=AgentMode.TRADING,
+            action_state=ActionState.BUY_NOW,
+            verdict=AgentVerdict.BUY_CANDIDATE,
+            buy_score=80.0, sell_score=10.0,
+        )
+        for d in range(1, 31)
+    ]
+    kline = _sample_kline_with_open(120)  # 足够覆盖 60 天窗口
+    cache = {"A:000001": kline}
+
+    trades = build_trades(signals, kline_cache=cache, cooldown_days=60, windows=(5, 10, 20, 60))
+
+    assert len(trades) == 1
+    assert trades[0].signal_date == date(2024, 1, 1)
