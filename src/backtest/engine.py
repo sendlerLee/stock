@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date
+from typing import Optional
 
 import pandas as pd
 
@@ -99,12 +100,16 @@ def run_backtest(
     snapshot 构建失败的股票跳过（不中断）。
 
     kline_cache: 可选的预取缓存，注入后跳过 prefetch_klines（测试用）。
+
+    性能：用 _CachedProvider 包裹 base，K 线走内存缓存，估值/资金流/行业
+    只打一次网络（这些 as-of 无关，每天值相同）。否则逐日逐股打网络会极慢。
     """
     cache = kline_cache if kline_cache is not None else prefetch_klines(targets, provider, start, end)
+    cached_provider = _CachedProvider(provider, kline_cache=cache)
     agent = StockAgent()
     signals: list[SignalRecord] = []
     for t in _trading_days(cache, start, end):
-        as_of_provider = AsOfStockDataProvider(base=provider, as_of=t)
+        as_of_provider = AsOfStockDataProvider(base=cached_provider, as_of=t)
         builder = SnapshotBuilder(provider=as_of_provider)
         for target in targets:
             try:
@@ -126,3 +131,64 @@ def run_backtest(
             except Exception:
                 continue
     return signals
+
+
+class _CachedProvider:
+    """K 线走内存 cache，估值/资金流/行业只打一次网络并缓存（as-of 无关）。
+
+    让 AsOfStockDataProvider 的 base 用本类，避免逐日逐股重复打网络。
+    """
+
+    def __init__(self, base: StockDataProvider, kline_cache: dict[str, pd.DataFrame]):
+        self._base = base
+        self._kline_cache = kline_cache
+        self._val_cache: dict[str, dict] = {}
+        self._flow_cache: dict[str, dict] = {}
+        self._sector_cache: dict[str, dict] = {}
+        self._realtime_cache: dict[str, dict] = {}
+
+    def _key(self, target: StockTarget) -> str:
+        return f"{target.market.value}:{target.symbol}"
+
+    def get_kline(self, target: StockTarget, days: int = 180) -> pd.DataFrame:
+        key = self._key(target)
+        df = self._kline_cache.get(key)
+        if df is not None and not df.empty:
+            return df.copy()
+        return self._base.get_kline(target, days)
+
+    def get_realtime(self, target: StockTarget) -> dict:
+        key = self._key(target)
+        if key not in self._realtime_cache:
+            try:
+                self._realtime_cache[key] = self._base.get_realtime(target)
+            except Exception:
+                self._realtime_cache[key] = {}
+        return self._realtime_cache[key]
+
+    def get_valuation(self, target: StockTarget) -> dict:
+        key = self._key(target)
+        if key not in self._val_cache:
+            try:
+                self._val_cache[key] = self._base.get_valuation(target)
+            except Exception:
+                self._val_cache[key] = {}
+        return self._val_cache[key]
+
+    def get_flow(self, target: StockTarget) -> dict:
+        key = self._key(target)
+        if key not in self._flow_cache:
+            try:
+                self._flow_cache[key] = self._base.get_flow(target)
+            except Exception:
+                self._flow_cache[key] = {}
+        return self._flow_cache[key]
+
+    def get_sector(self, target: StockTarget) -> dict:
+        key = self._key(target)
+        if key not in self._sector_cache:
+            try:
+                self._sector_cache[key] = self._base.get_sector(target)
+            except Exception:
+                self._sector_cache[key] = {}
+        return self._sector_cache[key]
