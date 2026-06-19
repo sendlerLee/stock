@@ -72,6 +72,23 @@ def prefetch_klines(
     return cache
 
 
+def _apply_stock_names(targets: list[StockTarget]) -> None:
+    """用 universe.STOCK_NAMES 填充 target.name（仅当 name 为空时）。
+
+    StockTarget 是 frozen dataclass，这里用 object.__setattr__ 绕过冻结。
+    若已显式传入 name（测试场景）则不覆盖。
+    """
+    from src.backtest.universe import STOCK_NAMES
+
+    for target in targets:
+        if target.name:
+            continue
+        key = f"{target.market.value}:{target.symbol}"
+        name = STOCK_NAMES.get(key)
+        if name:
+            object.__setattr__(target, "name", name)
+
+
 def _trading_days(cache: dict[str, pd.DataFrame], start: date, end: date) -> list[date]:
     """取全池 K 线日期并集，落在 [start, end] 内的交易日。"""
     all_dates: set[date] = set()
@@ -105,6 +122,8 @@ def run_backtest(
     只打一次网络（这些 as-of 无关，每天值相同）。否则逐日逐股打网络会极慢。
     """
     cache = kline_cache if kline_cache is not None else prefetch_klines(targets, provider, start, end)
+    # 预解析名称：用 universe.STOCK_NAMES 填充，避免依赖实时接口取 name（缓存失败会缺失）。
+    _apply_stock_names(targets)
     cached_provider = _CachedProvider(provider, kline_cache=cache)
     agent = StockAgent()
     signals: list[SignalRecord] = []

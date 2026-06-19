@@ -264,3 +264,26 @@ def test_report_contains_required_sections():
     assert "probe" in md
     assert "等权基准" in md or "基准" in md
     assert "S1" in md  # 明细
+
+
+def test_apply_stock_names_fills_empty_names():
+    from src.backtest.engine import _apply_stock_names
+    from config import Market
+    from src.agent.providers import StockTarget
+
+    # 无 name 的 target 应被填充
+    t1 = StockTarget(Market.A, "300308")
+    t2 = StockTarget(Market.HK, "00700")
+    t3 = StockTarget(Market.US, "TSM")
+    # 已有 name 的不应被覆盖
+    t4 = StockTarget(Market.A, "600036", name="已有名")
+    # 未知代码保持空
+    t5 = StockTarget(Market.A, "999999")
+
+    _apply_stock_names([t1, t2, t3, t4, t5])
+
+    assert t1.name == "中际旭创"
+    assert t2.name == "腾讯控股"
+    assert t3.name == "台积电"
+    assert t4.name == "已有名"  # 不覆盖
+    assert t5.name == ""  # 未知代码保持空
