@@ -250,16 +250,31 @@ def test_report_contains_required_sections():
                                                      "mean_return": 0.015, "median_return": 0.015,
                                                      "p25": 0.015, "p75": 0.015}},
     }
+    stop_metrics = {
+        ("action_state", "probe"): {5: {"count": 1, "win_rate": 0.0, "mean_return": -0.03,
+                                         "median_return": -0.03, "p25": -0.03, "p75": -0.03}},
+        ("action_state", "buy_now"): {5: {"count": 1, "win_rate": 0.0, "mean_return": -0.02,
+                                           "median_return": -0.02, "p25": -0.02, "p75": -0.02}},
+        ("benchmark", "signal_equal_weight"): {5: {"count": 2, "win_rate": 0.0,
+                                                     "mean_return": -0.025, "median_return": -0.025,
+                                                     "p25": -0.025, "p75": -0.025}},
+    }
     benchmark = {5: {"count": 26, "win_rate": 0.5, "mean_return": 0.01,
                       "median_return": 0.01, "p25": 0.0, "p75": 0.02}}
+    trades[0].stopped_out = True
     md = render_report(
         start=date(2024, 1, 1), end=date(2024, 6, 1), mode="trading",
         universe_size=26, total_signals=100, total_trades=2,
         metrics=metrics, benchmark=benchmark, trades=trades,
+        stop_metrics=stop_metrics, stop_pct=0.07,
     )
     assert "回测报告" in md
     assert "已知偏差" in md
     assert "未来函数" in md
+    assert "止损规则" in md
+    assert "分组胜率主表（止损后）" in md
+    assert "信号组等权(止损后)" in md
+    assert "✓触发" in md
     assert "buy_now" in md
     assert "probe" in md
     assert "等权基准" in md or "基准" in md

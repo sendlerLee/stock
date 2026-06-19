@@ -188,3 +188,81 @@ Read this request directory, inspect request-local `AGENT_FEATURES.json`, then p
 1. Task 8：实现 scripts/run_backtest.py CLI 入口。
 2. Task 9：真实小池子（3 只标的，6 个月）端到端 smoke，产出 reports/backtest_result_*.md。
 3. 推送到 GitHub（已初始化 git + 创建 sendlerLee/stock）。
+
+## Run Update - 2026-06-19T11:52:36Z
+
+- Request: `stock-agent-full`
+- Summary: Wired stop-loss metrics into the backtest CLI/report path and regenerated the 2025-12-01~2026-06-01 smoke report with stop-loss sections.
+- Result: passed
+- Next: Next safe increment: calibrate stop-loss thresholds and compare 7% vs disabled/alternate stops on the full 26-symbol two-year universe.
+
+### Evidence
+- Backtest CLI now exposes --stop-pct and passes stop_metrics into render_report.
+- Focused verification: /Users/didi/conda/bin/python -m pytest tests/test_backtest_engine.py -q -> 10 passed.
+- CLI verification: /Users/didi/conda/bin/python scripts/run_backtest.py --help shows --stop-pct.
+- Real smoke: 2025-12-01~2026-06-01, A:600036/US:TSM/HK:00700, 390 signals, 3 trades, stop-loss report generated.
+
+### Commands
+- /Users/didi/conda/bin/python -m pytest tests/test_backtest_engine.py -q
+- /Users/didi/conda/bin/python scripts/run_backtest.py --help
+- /Users/didi/conda/bin/python scripts/run_backtest.py --start 2025-12-01 --end 2026-06-01 --mode trading --symbols A:600036,US:TSM,HK:00700 --stop-pct 0.07 --output-dir reports
+
+### Changed Files Or Artifacts
+- scripts/run_backtest.py
+- src/backtest/report.py
+- tests/test_backtest_engine.py
+- reports/backtest_result_2025-12-01_2026-06-01.md
+
+### Decisions
+- Reports only show stop-loss sections/columns when stop metrics are supplied, preserving legacy report shape when stop-loss is disabled.
+
+### Blockers And Risks
+- None.
+
+## Run Update - 2026-06-19T12:01:11Z
+
+- Request: `stock-agent-full`
+- Summary: Completed the full 26-symbol two-year stop-loss backtest and verified the generated report.
+- Result: passed
+- Next: Commit and push the stop-loss backtest/report changes to GitHub.
+
+### Evidence
+- Full-pool stop-loss backtest passed: 2024-06-01~2026-06-01, 26 symbols, 13000 signals, 94 cooldown-deduped trades.
+- Generated reports/backtest_result_2024-06-01_2026-06-01.md with 7% stop-loss summary: 53/94 trades triggered.
+- Focused verification after full run: /Users/didi/conda/bin/python -m pytest tests/test_backtest_engine.py -q -> 10 passed.
+
+### Commands
+- /Users/didi/conda/bin/python scripts/run_backtest.py --start 2024-06-01 --end 2026-06-01 --mode trading --stop-pct 0.07 --output-dir reports
+- /Users/didi/conda/bin/python -m pytest tests/test_backtest_engine.py -q
+
+### Changed Files Or Artifacts
+- reports/backtest_result_2024-06-01_2026-06-01.md
+
+### Decisions
+- 7% stop-loss is now included in both small-universe and full-pool reports; next analytical increment can compare multiple stop thresholds.
+
+### Blockers And Risks
+- None.
+
+## Run Update - 2026-06-19T12:02:32Z
+
+- Request: `stock-agent-full`
+- Summary: Committed stop-loss backtest/report changes locally; push was attempted but blocked by missing GitHub credentials.
+- Result: push blocked
+- Next: Configure GitHub HTTPS credentials or SSH key, then run git push origin main.
+
+### Evidence
+- Local commit created on main; branch is ahead of origin/main by 3 commits.
+
+### Commands
+- git commit -m 'feat(backtest): report stop-loss metrics'
+- git push origin main
+
+### Changed Files Or Artifacts
+- None.
+
+### Decisions
+- None.
+
+### Blockers And Risks
+- git push origin main failed: fatal: could not read Username for 'https://github.com': Device not configured. SSH also failed with Permission denied (publickey); gh CLI is not installed.

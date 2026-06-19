@@ -110,3 +110,30 @@ Resume this request by reading `CONTEXT_PACK.md`, `AGENT_PROGRESS.md`, `AGENT_FE
 
 ### Next Prompt Seed
 Resume from Task 8：实现 scripts/run_backtest.py（CLI 入口，--start/--end/--mode/--symbols/--output-dir），复用 engine.run_backtest + results.build_trades/compute_metrics/compute_benchmark + report.render_report。然后 Task 9 真实数据 smoke。
+
+## Run Update - 2026-06-19T11:52:36Z
+
+- Current update: Wired stop-loss metrics into the backtest CLI/report path and regenerated the 2025-12-01~2026-06-01 smoke report with stop-loss sections.
+- Result: passed
+- Next prompt seed: Resume `stock-agent-full` from this update. Read `CONTEXT_PACK.md`, `AGENT_PROGRESS.md`, `AGENT_FEATURES.json`, `AGENT_HANDOFF.md`, `CODE_REVIEW.md` if present, and `LOOP_STATE.json` if present. Next action: Next safe increment: calibrate stop-loss thresholds and compare 7% vs disabled/alternate stops on the full 26-symbol two-year universe..
+
+### Must Carry Forward
+- Reports only show stop-loss sections/columns when stop metrics are supplied, preserving legacy report shape when stop-loss is disabled.
+
+## Run Update - 2026-06-19T12:01:11Z
+
+- Current update: Completed the full 26-symbol two-year stop-loss backtest and verified the generated report.
+- Result: passed
+- Next prompt seed: Resume `stock-agent-full` from this update. Read `CONTEXT_PACK.md`, `AGENT_PROGRESS.md`, `AGENT_FEATURES.json`, `AGENT_HANDOFF.md`, `CODE_REVIEW.md` if present, and `LOOP_STATE.json` if present. Next action: Commit and push the stop-loss backtest/report changes to GitHub..
+
+### Must Carry Forward
+- 7% stop-loss is now included in both small-universe and full-pool reports; next analytical increment can compare multiple stop thresholds.
+
+## Run Update - 2026-06-19T12:02:32Z
+
+- Current update: Committed stop-loss backtest/report changes locally; push was attempted but blocked by missing GitHub credentials.
+- Result: push blocked
+- Next prompt seed: Resume `stock-agent-full` from this update. Read `CONTEXT_PACK.md`, `AGENT_PROGRESS.md`, `AGENT_FEATURES.json`, `AGENT_HANDOFF.md`, `CODE_REVIEW.md` if present, and `LOOP_STATE.json` if present. Next action: Configure GitHub HTTPS credentials or SSH key, then run git push origin main..
+
+### Must Carry Forward
+- git push origin main failed: fatal: could not read Username for 'https://github.com': Device not configured. SSH also failed with Permission denied (publickey); gh CLI is not installed.

@@ -98,7 +98,7 @@
     {
       "id": "F006",
       "title": "Backtest CLI entry script",
-      "status": "in_progress",
+      "status": "passed",
       "priority": "high",
       "acceptance": [
         "scripts/run_backtest.py with --start/--end/--mode/--symbols/--output-dir.",
@@ -107,12 +107,17 @@
       "verification": [
         "/Users/didi/conda/bin/python scripts/run_backtest.py --help"
       ],
-      "evidence": []
+      "evidence": [
+        "Backtest CLI now exposes --stop-pct and passes stop_metrics into render_report.",
+        "Focused verification: /Users/didi/conda/bin/python -m pytest tests/test_backtest_engine.py -q -> 10 passed.",
+        "CLI verification: /Users/didi/conda/bin/python scripts/run_backtest.py --help shows --stop-pct.",
+        "Real smoke: 2025-12-01~2026-06-01, A:600036/US:TSM/HK:00700, 390 signals, 3 trades, stop-loss report generated."
+      ]
     },
     {
       "id": "F007",
       "title": "Backtest end-to-end smoke with real data",
-      "status": "pending",
+      "status": "passed",
       "priority": "high",
       "acceptance": [
         "Run on small universe (3 symbols, 6 months) with real data.",
@@ -121,7 +126,13 @@
       "verification": [
         "/Users/didi/conda/bin/python scripts/run_backtest.py --start 2025-12-01 --end 2026-06-01 --mode trading --symbols A:600036,US:TSM,HK:00700"
       ],
-      "evidence": []
+      "evidence": [
+        "Real smoke passed: /Users/didi/conda/bin/python scripts/run_backtest.py --start 2025-12-01 --end 2026-06-01 --mode trading --symbols A:600036,US:TSM,HK:00700 --stop-pct 0.07 --output-dir reports",
+        "Generated reports/backtest_result_2025-12-01_2026-06-01.md with 390 signals, 3 cooldown-deduped trades, stop-loss summary 2/3 triggered, and stop-loss metrics table.",
+        "Full-pool stop-loss backtest passed: 2024-06-01~2026-06-01, 26 symbols, 13000 signals, 94 cooldown-deduped trades.",
+        "Generated reports/backtest_result_2024-06-01_2026-06-01.md with 7% stop-loss summary: 53/94 trades triggered.",
+        "Focused verification after full run: /Users/didi/conda/bin/python -m pytest tests/test_backtest_engine.py -q -> 10 passed."
+      ]
     }
   ]
 }
