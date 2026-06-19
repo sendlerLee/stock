@@ -21,7 +21,13 @@ DEFAULT_WINDOWS = (5, 10, 20, 60)
 
 @dataclass
 class TradeRecord:
-    """一笔回测交易（信号触发 → 纯持有到期）。"""
+    """一笔回测交易（信号触发 → 纯持有到期 / 可选止损）。
+
+    returns: 纯持有到期收益（对照组），returns[N] = 第 N 日收盘/入场开盘 - 1。
+    stop_returns: 止损后收益。止损在第 j 日触发（j < N）时，stop_returns[N] =
+        触发日收盘/入场开盘 - 1；未触发则等于 returns[N]。
+    stopped_out: 持仓周期内是否触发过止损。
+    """
 
     signal_date: date
     symbol: str
@@ -31,7 +37,8 @@ class TradeRecord:
     entry_date: date
     entry_price: float
     returns: dict[int, Optional[float]] = field(default_factory=dict)
-    # returns[N] = 第 N 个交易日收盘相对 entry_open 的收益；数据不足为 None
+    stop_returns: dict[int, Optional[float]] = field(default_factory=dict)
+    stopped_out: bool = False
 
 
 def _cache_key(market: str, symbol: str) -> str:
@@ -48,13 +55,17 @@ def build_trades(
     kline_cache: dict[str, pd.DataFrame],
     cooldown_days: int = 60,
     windows: tuple[int, ...] = DEFAULT_WINDOWS,
+    stop_pct: float = 0.07,
 ) -> list[TradeRecord]:
     """把信号序列冷却去重后转为交易列表，算各档窗口收益。
 
     kline_cache: {cache_key: DataFrame}，key 格式 "MARKET:SYMBOL"。
+    stop_pct: 止损比例（相对入场价）。日内最低价跌破 entry_price*(1-stop_pct)
+        时触发，以触发日收盘结算。0 表示禁用止损。
     """
     trades: list[TradeRecord] = []
     last_entry_idx: dict[str, int] = {}  # symbol → 上次 entry 在其 K 线中的行索引
+    max_window = max(windows)
 
     for sig in sorted(signals, key=lambda s: s.signal_date):
         if sig.action_state not in ENTRY_STATES:
@@ -77,6 +88,9 @@ def build_trades(
 
         entry_date = pd.to_datetime(df.iloc[entry_i]["date"]).date()
         entry_price = float(df.iloc[entry_i]["open"])
+        has_low = "low" in df.columns
+
+        # 纯持有到期收益
         returns: dict[int, Optional[float]] = {}
         for n in windows:
             exit_i = entry_i + n
@@ -85,6 +99,37 @@ def build_trades(
             else:
                 exit_close = float(df.iloc[exit_i]["close"])
                 returns[n] = round(exit_close / entry_price - 1, 4) if entry_price else None
+
+        # 止损后收益：在 [entry_i, entry_i+max_window] 内逐 bar 检查 low 跌破止损线
+        stop_returns: dict[int, Optional[float]] = {}
+        stopped_out = False
+        if stop_pct > 0 and entry_price and has_low:
+            stop_price = entry_price * (1 - stop_pct)
+            stop_exit_i: Optional[int] = None
+            scan_end = min(entry_i + max_window, len(df) - 1)
+            lows = df["low"].tolist()
+            closes = df["close"].tolist()
+            for j in range(entry_i, scan_end + 1):
+                if float(lows[j]) < stop_price:
+                    stop_exit_i = j
+                    break
+            if stop_exit_i is not None:
+                stopped_out = True
+                stop_return_val = round(float(closes[stop_exit_i]) / entry_price - 1, 4)
+                days_to_stop = stop_exit_i - entry_i
+                for n in windows:
+                    if n >= days_to_stop:
+                        # 窗口覆盖止损触发日 → 用止损收益
+                        stop_returns[n] = stop_return_val
+                    else:
+                        # 窗口短于止损触发日 → 止损未在该窗口内触发，等于纯持有
+                        stop_returns[n] = returns.get(n)
+            else:
+                for n in windows:
+                    stop_returns[n] = returns.get(n)
+        else:
+            for n in windows:
+                stop_returns[n] = returns.get(n)
 
         trades.append(
             TradeRecord(
@@ -96,6 +141,8 @@ def build_trades(
                 entry_date=entry_date,
                 entry_price=entry_price,
                 returns=returns,
+                stop_returns=stop_returns,
+                stopped_out=stopped_out,
             )
         )
         last_entry_idx[sig.symbol] = entry_i
@@ -123,13 +170,16 @@ def _window_stats(values: list[float]) -> dict:
 def compute_metrics(
     trades: list[TradeRecord],
     windows: tuple[int, ...] = DEFAULT_WINDOWS,
+    use_stop: bool = False,
 ) -> dict:
     """按 action_state 分组，算每档窗口胜率/均值/中位/分位/样本量。
 
     返回 {(group_name, group_value): {window: stats}}。
     group_name 固定 "action_state"；另加 ("benchmark", "signal_equal_weight")。
+    use_stop: True 用 stop_returns（止损后），False 用 returns（纯持有）。
     """
     metrics: dict = {}
+    source = lambda t: (t.stop_returns if use_stop else t.returns)
     # 按 action_state 分组
     by_state: dict[str, list[TradeRecord]] = {}
     for t in trades:
@@ -137,14 +187,14 @@ def compute_metrics(
     for state, group in by_state.items():
         per_window: dict[int, dict] = {}
         for n in windows:
-            vals = [t.returns[n] for t in group if t.returns.get(n) is not None]
+            vals = [source(t)[n] for t in group if source(t).get(n) is not None]
             per_window[n] = _window_stats(vals)
         metrics[("action_state", state)] = per_window
 
     # 基准：所有交易等权（信号组自身的等权均值）
     per_window_bench: dict[int, dict] = {}
     for n in windows:
-        vals = [t.returns[n] for t in trades if t.returns.get(n) is not None]
+        vals = [source(t)[n] for t in trades if source(t).get(n) is not None]
         per_window_bench[n] = _window_stats(vals)
     metrics[("benchmark", "signal_equal_weight")] = per_window_bench
     return metrics

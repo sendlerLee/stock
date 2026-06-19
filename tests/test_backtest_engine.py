@@ -287,3 +287,98 @@ def test_apply_stock_names_fills_empty_names():
     assert t3.name == "台积电"
     assert t4.name == "已有名"  # 不覆盖
     assert t5.name == ""  # 未知代码保持空
+
+
+def test_stop_loss_triggered_changes_long_window_returns():
+    from src.backtest.results import build_trades
+    from src.agent.stock_agent import ActionState, AgentVerdict, AgentMode
+
+    # K 线：入场后第 10 天暴跌到 -8%，之后回升。
+    # entry 在 idx1（次日开盘）。
+    n = 70
+    dates = pd.date_range("2024-01-01", periods=n, freq="D")
+    closes = [100.0] * n
+    # idx 10~12 暴跌（相对 entry_open 100 跌到 ~92，即 -8%）
+    for i in range(10, 13):
+        closes[i] = 92.0
+    lows = closes[:]  # 简化：low = close
+    kline = pd.DataFrame(
+        {"date": dates, "open": closes, "high": closes, "low": lows, "close": closes,
+         "volume": [1000.0] * n, "amount": [c * 1000 for c in closes]}
+    )
+    signals = [SignalRecord(
+        signal_date=date(2024, 1, 1), symbol="000001", name="T", market="A",
+        mode=AgentMode.TRADING, action_state=ActionState.PROBE,
+        verdict=AgentVerdict.WATCH, buy_score=60.0, sell_score=10.0,
+    )]
+    cache = {"A:000001": kline}
+
+    trades = build_trades(signals, kline_cache=cache, cooldown_days=60,
+                          windows=(5, 10, 20, 60), stop_pct=0.07)
+    assert len(trades) == 1
+    t = trades[0]
+    # 短窗口（5天）：止损未触发，stop_returns 应等于 returns
+    assert t.stop_returns[5] == t.returns[5]
+    # 长窗口（20/60天）：止损在 idx10 触发，stop_returns 应为止损收益
+    expected_stop = round(92.0 / 100.0 - 1, 4)  # -0.08
+    assert t.stop_returns[20] == expected_stop
+    assert t.stop_returns[60] == expected_stop
+    assert t.stopped_out is True
+
+
+def test_stop_loss_not_triggered_when_price_never_drops():
+    from src.backtest.results import build_trades
+    from src.agent.stock_agent import ActionState, AgentVerdict, AgentMode
+
+    # K 线一路上涨，永不触发止损
+    n = 70
+    dates = pd.date_range("2024-01-01", periods=n, freq="D")
+    closes = [100 + i * 0.5 for i in range(n)]
+    kline = pd.DataFrame(
+        {"date": dates, "open": closes, "high": closes, "low": closes, "close": closes,
+         "volume": [1000.0] * n, "amount": [c * 1000 for c in closes]}
+    )
+    signals = [SignalRecord(
+        signal_date=date(2024, 1, 1), symbol="000001", name="T", market="A",
+        mode=AgentMode.TRADING, action_state=ActionState.PROBE,
+        verdict=AgentVerdict.WATCH, buy_score=60.0, sell_score=10.0,
+    )]
+    cache = {"A:000001": kline}
+
+    trades = build_trades(signals, kline_cache=cache, cooldown_days=60,
+                          windows=(5, 10, 20, 60), stop_pct=0.07)
+    t = trades[0]
+    # 未触发止损：所有 stop_returns 应等于 returns
+    for n in (5, 10, 20, 60):
+        if t.returns.get(n) is not None:
+            assert t.stop_returns[n] == t.returns[n]
+    assert t.stopped_out is False
+
+
+def test_stop_loss_disabled_when_stop_pct_zero():
+    from src.backtest.results import build_trades
+    from src.agent.stock_agent import ActionState, AgentVerdict, AgentMode
+
+    n = 70
+    dates = pd.date_range("2024-01-01", periods=n, freq="D")
+    closes = [100.0] * n
+    for i in range(10, 13):
+        closes[i] = 50.0  # 暴跌
+    kline = pd.DataFrame(
+        {"date": dates, "open": closes, "high": closes, "low": closes, "close": closes,
+         "volume": [1000.0] * n, "amount": [c * 1000 for c in closes]}
+    )
+    signals = [SignalRecord(
+        signal_date=date(2024, 1, 1), symbol="000001", name="T", market="A",
+        mode=AgentMode.TRADING, action_state=ActionState.PROBE,
+        verdict=AgentVerdict.WATCH, buy_score=60.0, sell_score=10.0,
+    )]
+    cache = {"A:000001": kline}
+
+    trades = build_trades(signals, kline_cache=cache, cooldown_days=60,
+                          windows=(5, 10, 20, 60), stop_pct=0.0)
+    t = trades[0]
+    # stop_pct=0 禁用止损：stop_returns 全部等于 returns
+    for n in (5, 10, 20, 60):
+        assert t.stop_returns.get(n) == t.returns.get(n)
+    assert t.stopped_out is False
