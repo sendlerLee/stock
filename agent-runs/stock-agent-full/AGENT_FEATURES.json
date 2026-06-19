@@ -69,11 +69,57 @@
       "status": "pending",
       "priority": "high",
       "acceptance": [
-        "Run the scanner on a small real universe including 招商银行 and 华虹宏力.",
+        "Run the scanner on a small universe including 招商银行 and 华虹宏力.",
         "Capture limitations from any flaky external endpoint."
       ],
       "verification": [
         "python3 scripts/run_stock_agent.py --symbols A:600036,A:688347,HK:01347 --mode trading"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "F005",
+      "title": "Backtest engine reusing StockAgent (event-driven)",
+      "status": "passed",
+      "priority": "high",
+      "acceptance": [
+        "Daily event loop calls AsOfStockDataProvider + SnapshotBuilder + StockAgent.evaluate (zero logic drift).",
+        "K-line prefetch cache to data/stock.db; cooldown dedup (60 trading days).",
+        "Holding-period returns for windows 5/10/20/60 days; insufficient data marked None."
+      ],
+      "verification": [
+        "/Users/didi/conda/bin/python -m pytest tests/test_backtest_engine.py -q"
+      ],
+      "evidence": [
+        "src/backtest/universe.py, engine.py, results.py, report.py",
+        "6 unit tests passed (prefetch, event loop, cooldown, return formula, metrics, report)"
+      ]
+    },
+    {
+      "id": "F006",
+      "title": "Backtest CLI entry script",
+      "status": "in_progress",
+      "priority": "high",
+      "acceptance": [
+        "scripts/run_backtest.py with --start/--end/--mode/--symbols/--output-dir.",
+        "Wires engine.run_backtest + results.build_trades/compute_metrics/compute_benchmark + report.render_report."
+      ],
+      "verification": [
+        "/Users/didi/conda/bin/python scripts/run_backtest.py --help"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "F007",
+      "title": "Backtest end-to-end smoke with real data",
+      "status": "pending",
+      "priority": "high",
+      "acceptance": [
+        "Run on small universe (3 symbols, 6 months) with real data.",
+        "Produce reports/backtest_result_<start>_<end>.md with win-rate table + benchmark."
+      ],
+      "verification": [
+        "/Users/didi/conda/bin/python scripts/run_backtest.py --start 2025-12-01 --end 2026-06-01 --mode trading --symbols A:600036,US:TSM,HK:00700"
       ],
       "evidence": []
     }

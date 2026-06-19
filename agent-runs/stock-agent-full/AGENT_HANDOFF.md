@@ -158,3 +158,33 @@ Read this request directory, inspect request-local `AGENT_FEATURES.json`, then p
 
 ### Blockers And Risks
 - A-share Eastmoney fund-flow endpoint still intermittently disconnects; current output labels those cases as unconfirmed.
+
+## Run Update - 2026-06-18T10:30:00Z
+
+### Current Objective
+- 实现回测系统验证 StockAgent 选股逻辑的历史胜率（事件驱动逐日复用生产代码）。
+
+### Selected Increment
+- Task 1-7 完成（universe/engine/results/report + 6 单元测试）；剩余 Task 8（CLI）+ Task 9（端到端 smoke）。
+
+### Recent Changes
+- 新增 src/backtest/ 模块（universe.py, engine.py, results.py, report.py）。
+- run_backtest 逐日调 AsOfStockDataProvider + SnapshotBuilder + StockAgent.evaluate。
+- 冷却去重（60 交易日）+ 纯持有到期收益（5/10/20/60 天四档）。
+- 等权全池基准对照 + Markdown 报告（含已知偏差声明）。
+
+### Commands Run
+- /Users/didi/conda/bin/python -m pytest tests/test_backtest_engine.py -q（6 passed）
+
+### Important Decisions
+- 方案 A（事件驱动复用 StockAgent），不用向量化重写。
+- 纯持有到期退出（第一版无止损）。
+- run_backtest 加 kline_cache 参数解决测试 DB 污染问题。
+
+### Known Failures
+- 无（测试全绿）。
+
+### Next Recommended Increment
+1. Task 8：实现 scripts/run_backtest.py CLI 入口。
+2. Task 9：真实小池子（3 只标的，6 个月）端到端 smoke，产出 reports/backtest_result_*.md。
+3. 推送到 GitHub（已初始化 git + 创建 sendlerLee/stock）。

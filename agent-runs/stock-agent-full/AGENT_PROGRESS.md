@@ -161,3 +161,39 @@ Define the current objective for this request.
 
 ### Blockers And Risks
 - A-share Eastmoney fund-flow endpoint still intermittently disconnects; current output labels those cases as unconfirmed.
+
+## Run Update - 2026-06-18T10:30:00Z
+
+- Request: `stock-agent-full`
+- Summary: 实现回测系统（验证选股逻辑历史胜率），已完成 Task 1-7（股票池、K线预取、事件循环、冷却去重、收益计算、指标聚合、Markdown 报告），6 个单元测试全绿。剩余 Task 8（CLI）+ Task 9（端到端 smoke）。
+- Result: implementation in progress (7/9 tasks done)
+- Next: 实现 scripts/run_backtest.py CLI 入口，然后跑真实数据端到端 smoke 验证。
+
+### Evidence
+- 6 个回测单元测试全绿：prefetch 缓存、事件循环产出信号、冷却去重、收益公式、数据不足处理、指标聚合胜率、报告必含字段。
+- 回测直接复用生产代码 StockAgent.evaluate（零逻辑漂移）。
+- 测试通过注入 FakeProvider + kline_cache 完全离线，不依赖网络。
+
+### Commands
+- /Users/didi/conda/bin/python -m pytest tests/test_backtest_engine.py -q
+
+### Changed Files Or Artifacts
+- src/backtest/__init__.py
+- src/backtest/universe.py
+- src/backtest/engine.py
+- src/backtest/results.py
+- src/backtest/report.py
+- tests/test_backtest_engine.py
+- docs/superpowers/specs/2026-06-18-backtest-design.md
+- docs/superpowers/plans/2026-06-18-backtest.md
+
+### Decisions
+- 方案 A 选定：事件驱动逐日复用 StockAgent，不重写打分逻辑（避免逻辑漂移）。
+- 纯持有到期退出（第一版不带止损），避免污染对信号本身的判断。
+- 信号冷却：每只股票建仓后 60 交易日内不重复建仓，冷却期内信号忽略（不延迟、不排队）。
+- run_backtest 加可选 kline_cache 参数，支持测试注入缓存绕过 DB。
+- 成交价用次日开盘，无未来函数；PE/PB/ROE 等基本面字段用最新值，标注为已知偏差（trading 模式权重合计 0.20）。
+
+### Blockers And Risks
+- A 股 Eastmoney 资金流接口间歇性断连，回测里这些日期资金维度标 unconfirmed。
+- 基本面字段无历史快照，trading 模式权重低但非零，已在报告"已知偏差声明"中标注。

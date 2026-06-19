@@ -91,3 +91,22 @@ Resume this request by reading `CONTEXT_PACK.md`, `AGENT_PROGRESS.md`, `AGENT_FE
 - Stopped after actionable stocks appeared per user instruction; did not expand to full-market discovery.
 - Kept AgentVerdict buckets for compatibility and added ActionState for execution-level status.
 - A-share Eastmoney fund-flow endpoint still intermittently disconnects; current output labels those cases as unconfirmed.
+
+## Run Update - 2026-06-18T10:30:00Z
+
+- Current update: 回测系统实现 7/9 任务完成（universe/engine/results/report + 6 单元测试）。
+- Result: implementation in progress
+
+### Must Carry Forward
+- 回测直接复用 src.agent.stock_agent.StockAgent.evaluate，零逻辑漂移——这是核心约束，任何"优化"都不能脱离生产代码。
+- run_backtest 有可选 kline_cache 参数：测试注入绕过 DB，生产不传走 prefetch_klines。
+- 冷却规则：ENTRY_STATES = {BUY_NOW, PROBE}，建仓后 60 交易日内不重复，冷却期内信号忽略（不延迟、不排队）。
+- 收益公式：entry=次日开盘，exit=entry+N 天收盘，return_n = exit_close/entry_open - 1，数据不足标 None。
+- 已知偏差：PE/PB/ROE/分红/行业用最新值（未来函数），trading 模式权重合计 0.20，已在 report.py 硬编码标注。
+- 测试必须离线：FakeProvider 注入 + kline_cache，不依赖网络或真实 DB。
+- git 已初始化并推送到 github.com/sendlerLee/stock（main 分支）。
+- 设计文档：docs/superpowers/specs/2026-06-18-backtest-design.md
+- 实现计划：docs/superpowers/plans/2026-06-18-backtest.md
+
+### Next Prompt Seed
+Resume from Task 8：实现 scripts/run_backtest.py（CLI 入口，--start/--end/--mode/--symbols/--output-dir），复用 engine.run_backtest + results.build_trades/compute_metrics/compute_benchmark + report.render_report。然后 Task 9 真实数据 smoke。
